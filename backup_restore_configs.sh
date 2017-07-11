@@ -50,6 +50,7 @@ case $1 in
 		cp -p $y "$RESTOREDIR""$y"
 	done
 	tar -cvf $ARCHIVE $RESTOREDIR
+	rm -rf $RESTOREDIR
 	echo "Archive $ARCHIVE have been created."
 	;;
 -r)
