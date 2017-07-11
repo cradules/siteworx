@@ -8,8 +8,8 @@ ARCHIVEDIR="/opt/solr/configarchive"
 EXTDIR="$ARCHIVEDIR/tmp/restore"
 ARCHIVE="$ARCHIVEDIR/$(date +%m_%d_%Y_%H_%M_%S_$(uname -n)_config.tar)"
 LASTARCHIVE=$(ls -rlt $ARCHIVEDIR | tail -1 | awk '{print $9}')
-USER=belden
-GROUP=belden
+USER=
+GROUP=
 WHO=$(echo $(whoami))
 
 function usage () {
