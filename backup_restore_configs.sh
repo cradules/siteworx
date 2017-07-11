@@ -8,8 +8,6 @@ ARCHIVEDIR="/opt/solr/configarchive"
 EXTDIR="$ARCHIVEDIR/tmp/restore"
 ARCHIVE="$ARCHIVEDIR/$(date +%m_%d_%Y_%H_%M_%S_$(uname -n)_config.tar)"
 LASTARCHIVE=$(ls -rlt $ARCHIVEDIR | tail -1 | awk '{print $9}')
-USER=
-GROUP=
 WHO=$(echo $(whoami))
 
 function usage () {
@@ -34,7 +32,6 @@ case $1 in
 	if [[ ! -d $ARCHIVEDIR ]]
 		then
 		mkdir -p $ARCHIVEDIR
-		chown $USER:$GROUP $ARCHIVEDIR
 	elif [[ -d $ARCHIVEDIR ]]
 		then
 		tar -cvf $ARCHIVE $RESTOREDIR
@@ -46,7 +43,6 @@ case $1 in
 	for y in `find $CONFIGDIR -type d | sed  "s:$CONFIGDIR::g"`
 	do 
 		mkdir -p "$RESTOREDIR"$y
-		chown $USER:$GROUP "$RESTOREDIR"$y 
 	done
 
 	for y in `find $CONFIGDIR -type f | sed  "s:$CONFIGDIR::g"`
@@ -54,7 +50,6 @@ case $1 in
 		cp -p $y "$RESTOREDIR""$y"
 	done
 	tar -cvf $ARCHIVE $RESTOREDIR
-	chown $USER:$GROUP $ARCHIVE
 	echo "Archive $ARCHIVE have been created."
 	;;
 -r)
