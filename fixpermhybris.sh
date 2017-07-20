@@ -27,7 +27,17 @@ sp="/-\|"
 		echo "User apache is not part of hybris group"
 		echo "Adding apache user to hybris group"
 		usermod -a -G hybris apache
+		echo "Done"
+		id apache
+		sleep 3	
 	fi
+clear
+#Fixing ownership
+	echo "Changing directories owner/group to hybris:hybris for $HYBRISHOME"
+	find $HYBRISHOME -type d -exec chown hybris:hybris {} \; & spinner
+
+	echo echo "Changing files owner/group to hybris:hybris for $HYBRISHOME"
+	find $HYBRISHOME -type f -exec chown hybris:hybris {} \; & spinner
 
 #Change directory permision to 775
 	clear
@@ -35,6 +45,7 @@ sp="/-\|"
 	echo "This might take a while"
 	find $HYBRISHOME -type d -exec chmod 775 {} \; & spinner
 	echo "Done"
+
 #Change file permisions
 	clear
 	echo "Changing file permissions from 755 to 775 and from 644 to 664 recursively for $HYBRISHOME"
